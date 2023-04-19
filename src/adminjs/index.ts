@@ -11,7 +11,7 @@ export const adminJs = new AdminJS({
     rootPath: "/admin",
     resources: adminJsResources,
     branding: {
-        companyName: 'OneBitFlix',
+        companyName: 'EducaPlayTec',
         logo: '/onebitflix.svg',
         theme: {
         colors: {
