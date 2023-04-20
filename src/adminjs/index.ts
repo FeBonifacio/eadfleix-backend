@@ -6,6 +6,7 @@ import AdminJSSequelize from "@adminjs/sequelize"
 import { sequelize } from './../database/seeders/index';
 import { User } from "../models"
 import bcrypt from "bcrypt"
+import { locale } from './locale';
 
 AdminJS.registerAdapter(AdminJSSequelize)
 
@@ -33,7 +34,9 @@ export const adminJs = new AdminJS({
             hoverBg: '#151515',
         }
     }
-}
+    },
+    //importa aqui para traduzir
+    locale: locale
 })
 
 //Esse código é para habilitar a autenticação dos logins
