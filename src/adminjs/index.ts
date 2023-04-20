@@ -4,7 +4,7 @@ import AdminJS from "adminjs"
 import AdminJSExpress from "@adminjs/express"
 import AdminJSSequelize from "@adminjs/sequelize"
 import { sequelize } from './../database/seeders/index';
-import { User } from "../models"
+import { Category, Course, Episode, User } from "../models"
 import bcrypt from "bcrypt"
 import { locale } from './locale';
 
@@ -15,7 +15,7 @@ export const adminJs = new AdminJS({
     rootPath: "/admin",
     resources: adminJsResources,
     branding: {
-        companyName: 'Educa',
+        companyName: 'EducaPlayTec',
         logo: '/onebitflix.svg',
         theme: {
         colors: {
@@ -36,7 +36,26 @@ export const adminJs = new AdminJS({
     }
     },
     //importa aqui para traduzir
-    locale: locale
+    locale: locale,
+    //Propriedade para alterar o layout, essa ferramente é do REACT
+    dashboard: {
+        component: AdminJS.bundle("./components/Dashboard"),
+        //Aqui conta o numeros de tudo que tem
+        handler: async (req, res, context) => {
+            const courses = await Course.count()
+            const episodes = await Episode.count()
+            const categories = await Category.count()
+            const standardUsers = await User.count({ where: { role: 'user' } } )
+
+            // Aqui fica bonitinho para ver, poderia fazer em gráficos ou igual a gorda da sua mae
+            res.json({
+                'Cursos': courses,
+                'Episódios': episodes,
+                'Categories': categories,
+                'Usuários': standardUsers
+            })
+        }
+    }
 })
 
 //Esse código é para habilitar a autenticação dos logins
