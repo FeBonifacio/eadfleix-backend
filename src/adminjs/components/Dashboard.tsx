@@ -23,7 +23,8 @@ export default function Dashboard() {
         // Para usar o react tem mudar na linha 17 tsconfig
         // O codigo da tabela eu peguei na net :>
     <section style={{ padding:'1.5rem' }}>
-            <H1>Vamos Aprender ?, {currentAdmin?.firstName}</H1> // colocar o nome do otario
+        
+            <H1>Vamos Aprender ?, {currentAdmin?.firstName}</H1>
 
         <section style={{ backgroundColor: '#FFF', padding: '1.5rem' }}>
     <H2>Resumo</H2>
