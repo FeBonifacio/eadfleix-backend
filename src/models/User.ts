@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../database/seeders"
 import bcrypt from 'bcrypt'
 
-
+type checkPasswordCallback = (error?: Error, isSame?: boolean) => void
 export interface User {
     id: number
     firstName: string
@@ -16,7 +16,9 @@ export interface User {
 
 export interface UserCreationAttributes extends Optional<User, 'id'> { }
 
-export interface UserInstance extends Model<User, UserCreationAttributes>, User { }
+export interface UserInstance extends Model<User, UserCreationAttributes>, User {
+    checkPassword: (password: string, callbackfn: checkPasswordCallback) => void
+}
 
 //Informações do banco de dados do usuario
 export const User = sequelize.define<UserInstance, User>('User', {
@@ -71,3 +73,14 @@ export const User = sequelize.define<UserInstance, User>('User', {
         }
     }
 })
+
+// Aqui nos vamos usar o JWT token para fazer a verificação de senha mais profissonal, quero leitinho na boca
+User.prototype.checkPassword = function (password: string, callbackfn: checkPasswordCallback) {
+    bcrypt.compare(password, this.password, (error, isSame) => {
+        if (error) {
+            callbackfn(error)
+        } else {
+            callbackfn(error, isSame)
+        }
+    })
+}
