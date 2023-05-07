@@ -15,7 +15,9 @@ export interface User {
     role: 'admin' | 'user'
 }
 
-export interface UserCreationAttributes extends Optional<User, 'id'> { }
+export interface UserCreationAttributes extends Optional<User, 'id'> { 
+    checkPassword: (password: string, callbackfn: checkPasswordCallback) => void
+}
 
 export interface UserInstance extends Model<User, UserCreationAttributes>, User {
     Episodes?: EpisodeInstance[]
