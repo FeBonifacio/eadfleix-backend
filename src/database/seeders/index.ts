@@ -11,3 +11,4 @@ export const sequelize = new Sequelize({
         underscored: true
     }
 })
+

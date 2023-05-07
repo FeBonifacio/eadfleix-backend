@@ -60,7 +60,7 @@ try {
                         email: user.email
                     }
 
-                    const token = jwtService.signToken(payload, '7d') // Esse 3d é o token vai expirar em 3 dias
+                    const token = jwtService.signToken(payload, '7d') // Esse 7d é o token vai expirar em 3 dias
 
                     return res.json({ authenticated: true, ...payload, token })
                 }
