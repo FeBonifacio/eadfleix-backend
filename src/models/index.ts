@@ -1,3 +1,4 @@
+import { WatchTime } from './WatchTime';
 // aqui se faz o relacionamento das tabelas
 import { Category } from './Category';
 import { Course } from './Courses';
@@ -16,12 +17,14 @@ Course.hasMany(Episode, { as: 'episodes' })
 Course.hasMany(Favorite, { as: 'FavoritesUsers', foreignKey: 'course_id' })
 
 Episode.belongsTo(Course)
+Episode.belongsToMany(User, { through: WatchTime })
 
 Favorite.belongsTo(Course)
 Favorite.belongsTo(User)
 
 User.belongsToMany(Course, { through: Favorite })
 User.belongsToMany(Course, { through: Like })
+User.belongsToMany(Episode, { through: WatchTime })
 User.hasMany(Favorite, { as: 'FavoritesCourses', foreignKey: 'user_id'})
 
 export {
@@ -30,5 +33,6 @@ export {
     Episode,
     Favorite,
     Like,
-    User
+    User,
+    WatchTime
 }
