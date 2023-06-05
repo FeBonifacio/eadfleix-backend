@@ -1,9 +1,13 @@
-import { adminJs, adminJsRouter } from './adminjs/index';
-import { sequelize } from './database/seeders/index';
+import { adminJs, adminJsRouter } from './adminjs';
+import cors from "cors"
+import { sequelize } from './database/seeders';
 import express from "express"
 import { router } from './routes';
 
 const app = express()
+
+// Estudar sobre os cors depois
+app.use(cors())
 
 app.use(express.static('public'))
 
